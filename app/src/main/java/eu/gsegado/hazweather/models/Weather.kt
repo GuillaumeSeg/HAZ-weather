@@ -7,5 +7,7 @@ import com.squareup.moshi.JsonClass
 data class Weather(
     @field:Json(name = "latitude")  val latitude: Float,
     @field:Json(name = "longitude") val longitude: Float,
-    @field:Json(name = "timezone")  val timezone: String
+    @field:Json(name = "timezone")  val timezone: String,
+    @field:Json(name = "currently") val current: CurrentWeather,
+    @field:Json(name = "daily")     val daily: DailyWeather
 )

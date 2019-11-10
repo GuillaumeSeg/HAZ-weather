@@ -23,7 +23,7 @@
         android:id="@+id/location_label"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:text="Secteur 34 Charonne Zone Paris"
+        tools:text="Secteur 34 Charonne Zone Paris"
         android:paddingStart="2dp"
         android:paddingEnd="10dp"
         android:lines="1"
@@ -59,7 +59,7 @@
         android:id="@+id/date_label"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:text="Lu 09.11.2165 16:10"
+        tools:text="Lu 09.11.2165 16:10"
         android:paddingStart="10dp"
         android:paddingEnd="2dp"
         android:lines="1"
@@ -70,7 +70,104 @@
         app:layout_constraintTop_toTopOf="@+id/line_h_2"
         app:layout_constraintBottom_toBottomOf="@+id/line_h_2" />
 
+
+
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/current_weather_container"
+        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        app:layout_constraintTop_toBottomOf="@id/date_label"
+        app:layout_constraintBottom_toTopOf="@id/tips"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_ve"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.40"/>
+        <ImageView
+            android:id="@+id/current_weather_img"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:src="@drawable/location_icon"
+            android:tint="@color/colorText"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/guideline_ve"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/current_weather_label"/>
+        <TextView
+            android:id="@+id/current_weather_label"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:paddingTop="4dp"
+            android:text="PLUIES ACIDES"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textColor="@color/colorText"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/guideline_ve"
+            app:layout_constraintTop_toBottomOf="@id/current_weather_img"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+        <TextView
+            android:id="@+id/current_weather_temperature"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:text="276 K"
+            android:gravity="center_vertical"
+            android:textColor="@color/colorText"
+            android:paddingStart="10dp"
+            android:textSize="34sp"
+            app:layout_constraintStart_toEndOf="@id/guideline_ve"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/current_weather_temperature_max"/>
+        <TextView
+            android:id="@+id/current_weather_temperature_max"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="Tmax -> 288 K"
+            android:gravity="center"
+            android:textColor="@color/colorText"
+            android:paddingEnd="10dp"
+            android:paddingStart="20dp"
+            android:textSize="20sp"
+            app:layout_constraintStart_toEndOf="@id/guideline_ve"
+            app:layout_constraintEnd_toStartOf="@id/line_h_3"
+            app:layout_constraintTop_toBottomOf="@id/current_weather_temperature"
+            app:layout_constraintBottom_toTopOf="@id/current_weather_temperature_min"/>
+        <TextView
+            android:id="@+id/current_weather_temperature_min"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="Tmin -> 242 K"
+            android:gravity="center"
+            android:textColor="@color/colorText"
+            android:paddingEnd="10dp"
+            android:paddingStart="20dp"
+            android:textSize="20sp"
+            app:layout_constraintStart_toEndOf="@id/guideline_ve"
+            app:layout_constraintEnd_toStartOf="@id/line_h_3"
+            app:layout_constraintTop_toBottomOf="@id/current_weather_temperature_max"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+        <View
+            android:id="@+id/line_h_3"
+            android:layout_marginTop="5dp"
+            android:layout_width="0dp"
+            android:layout_height="4dp"
+            android:background="@color/colorText"
+            app:layout_constraintStart_toEndOf="@id/current_weather_temperature_max"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/current_weather_temperature_max"
+            app:layout_constraintBottom_toBottomOf="@id/current_weather_temperature_max"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <TextView
+        android:id="@+id/tips"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:text="Il est recommandé de porter son masque à gaz aujourd'hui,"
@@ -78,7 +175,7 @@
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/current_weather_container"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

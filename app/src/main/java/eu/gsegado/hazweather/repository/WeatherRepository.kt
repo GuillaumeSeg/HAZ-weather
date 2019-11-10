@@ -52,7 +52,7 @@ class WeatherRepository {
     fun fetch(latitude: Double?, longitude: Double?) {
         networkCompositeDisposable.clear()
         Utils.safeLet(latitude, longitude) { latSafe, longSafe ->
-            weatherService.getWeather(getDarkSkyApiKey(), latSafe, longSafe, "si")
+            weatherService.getWeather(getDarkSkyApiKey(), latSafe, longSafe, "si", "minutely,hourly,alerts", "fr")
                 .map {
                     weatherBehaviorSubject.onNext(it)
                     return@map it

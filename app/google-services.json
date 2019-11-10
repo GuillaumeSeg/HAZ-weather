@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "246466034467",
+    "firebase_url": "https://haz-weather.firebaseio.com",
+    "project_id": "haz-weather",
+    "storage_bucket": "haz-weather.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:246466034467:android:fce2efc56735cc32586a96",
+        "android_client_info": {
+          "package_name": "eu.gsegado.hazweather"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "246466034467-m1ngbkqmp8ddqre5ft1rsiv53vtobkan.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "eu.gsegado.hazweather",
+            "certificate_hash": "a2b9890b7ceb6e1ebacdae0bd3e7e48dc68c0885"
+          }
+        },
+        {
+          "client_id": "246466034467-51n54c3lr1rt06vmd0216ln28r263t7f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDGy2XEnGfN4v8D3uJchGS5xiMtmhKqI-c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "246466034467-51n54c3lr1rt06vmd0216ln28r263t7f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

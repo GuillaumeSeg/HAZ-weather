@@ -5,7 +5,6 @@ import android.location.Geocoder
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import eu.gsegado.hazweather.Constants
 import eu.gsegado.hazweather.repository.WeatherRepository
 import eu.gsegado.hazweather.tools.Utils
 import java.text.SimpleDateFormat
@@ -50,7 +49,11 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
             val sectorLabel = Utils.getRandomSectorLabel()
             if (!thoroughfareName.isNullOrEmpty()) {
                 val thoroughfareNameSplit = thoroughfareName.split(" ", ignoreCase = false, limit = 2)
-                locationLabelLiveData.value = sectorLabel+" "+ thoroughfareNameSplit[1]
+                if (thoroughfareNameSplit.size >= 2) {
+                    locationLabelLiveData.value = sectorLabel+" "+ thoroughfareNameSplit[1]
+                } else {
+                    locationLabelLiveData.value = sectorLabel+" "+ thoroughfareNameSplit[0]
+                }
             } else {
                 locationLabelLiveData.value = "$sectorLabel $cityName"
             }

@@ -11,5 +11,7 @@ interface WeatherService {
     fun getWeather(@Path("key") key: String,
                    @Path("latitude") latitude: Double,
                    @Path("longitude") longitude: Double,
-                   @Query("units") units: String): Single<Weather>
+                   @Query("units") units: String,
+                   @Query("exclude") exclude: String,
+                   @Query("lang") language: String): Single<Weather>
 }
