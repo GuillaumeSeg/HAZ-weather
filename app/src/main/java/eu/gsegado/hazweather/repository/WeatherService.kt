@@ -9,7 +9,7 @@ import retrofit2.http.Query
 interface WeatherService {
     @GET("forecast/{key}/{latitude},{longitude}/")
     fun getWeather(@Path("key") key: String,
-                   @Path("latitude") latitude: Float,
-                   @Path("longitude") longitude: Float,
+                   @Path("latitude") latitude: Double,
+                   @Path("longitude") longitude: Double,
                    @Query("units") units: String): Single<Weather>
 }

@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: "kotlin-kapt"
 
 android {
     compileSdkVersion 29
@@ -34,6 +35,10 @@ dependencies {
     implementation "androidx.appcompat:appcompat:1.1.0"
     implementation "androidx.core:core-ktx:1.1.0"
     implementation "androidx.constraintlayout:constraintlayout:1.1.3"
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
+
+    // Google Services
+    implementation "com.google.android.gms:play-services-location:17.0.0"
 
     // Animation Lottie
     implementation "com.airbnb.android:lottie:3.1.0"
@@ -46,6 +51,7 @@ dependencies {
 
     // Moshi JSON
     implementation "com.squareup.moshi:moshi:1.9.1"
+    kapt "com.squareup.moshi:moshi-kotlin-codegen:1.9.1"
 
     // Rx
     implementation "io.reactivex.rxjava2:rxjava:2.2.14"

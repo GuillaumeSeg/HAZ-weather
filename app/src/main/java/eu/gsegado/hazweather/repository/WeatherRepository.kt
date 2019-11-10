@@ -3,12 +3,14 @@ package eu.gsegado.hazweather.repository
 import android.util.Log
 import eu.gsegado.hazweather.BuildConfig
 import eu.gsegado.hazweather.Constants
+import eu.gsegado.hazweather.models.Weather
 import eu.gsegado.hazweather.tools.Utils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
+import io.reactivex.subjects.BehaviorSubject
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -23,10 +25,12 @@ class WeatherRepository {
         }
     }
 
-    external fun getDarkSkyApiKey(): String
+    private external fun getDarkSkyApiKey(): String
 
     private val weatherService: WeatherService
     private val networkCompositeDisposable by lazy { CompositeDisposable() }
+
+    val weatherBehaviorSubject by lazy { BehaviorSubject.create<Weather>() }
 
     init {
         val client = OkHttpClient.Builder()
@@ -45,12 +49,12 @@ class WeatherRepository {
                 .create(WeatherService::class.java)
     }
 
-    fun fetch(latitude: Float?, longitude: Float?) {
+    fun fetch(latitude: Double?, longitude: Double?) {
         networkCompositeDisposable.clear()
         Utils.safeLet(latitude, longitude) { latSafe, longSafe ->
             weatherService.getWeather(getDarkSkyApiKey(), latSafe, longSafe, "si")
                 .map {
-                    //behaviorSubject.onNext(it)
+                    weatherBehaviorSubject.onNext(it)
                     return@map it
                 }
                 .subscribeOn(Schedulers.io())
@@ -66,6 +70,10 @@ class WeatherRepository {
                     })
                 .addTo(networkCompositeDisposable)
         }
+    }
+
+    fun clear() {
+        networkCompositeDisposable.clear()
     }
 
 }
