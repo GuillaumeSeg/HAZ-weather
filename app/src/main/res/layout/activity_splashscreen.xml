@@ -9,11 +9,17 @@
     tools:context=".SplashscreenActivity">
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
+        android:id="@+id/guideline_ve"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.55"/>
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_ho"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.25"/>
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/animation_view"
@@ -24,8 +30,7 @@
         app:lottie_autoPlay="true"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/guideline_ho"/>
 
     <TextView
         android:id="@+id/title"
@@ -54,7 +59,7 @@
         android:layout_width="0dp"
         android:layout_height="5dp"
         android:background="@color/colorText"
-        app:layout_constraintStart_toEndOf="@id/guideline"
+        app:layout_constraintStart_toEndOf="@id/guideline_ve"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/line"/>
 
