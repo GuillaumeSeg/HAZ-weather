@@ -2,16 +2,20 @@ package eu.gsegado.hazweather.home
 
 import android.Manifest
 import android.content.pm.PackageManager
+import android.location.Geocoder
 import android.location.Location
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import eu.gsegado.hazweather.Constants
 import eu.gsegado.hazweather.R
+import kotlinx.android.synthetic.main.activity_home.*
+import java.util.*
 
 class HomeActivity : AppCompatActivity() {
 
@@ -25,6 +29,13 @@ class HomeActivity : AppCompatActivity() {
         homeViewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+
+        homeViewModel.locationLabelLiveData.observe(this, Observer<String> { locationLabel ->
+            location_label.text = locationLabel
+        })
+        homeViewModel.dateLabelLiveData.observe(this, Observer<String> { dateLabel ->
+            date_label.text = dateLabel
+        })
 
         // Check Permission
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -61,6 +72,9 @@ class HomeActivity : AppCompatActivity() {
         fusedLocationClient.lastLocation.addOnSuccessListener { location : Location? ->
             location?.let {
                 homeViewModel.requestWeather(location.latitude, location.longitude)
+
+                val geocoder = Geocoder(this, Locale.getDefault())
+                homeViewModel.computeLocation(geocoder, location.latitude, location.longitude)
             }
         }
     }

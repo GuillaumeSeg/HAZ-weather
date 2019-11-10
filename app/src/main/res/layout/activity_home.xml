@@ -75,6 +75,7 @@
         android:layout_width="match_parent"
         android:text="Il est recommandé de porter son masque à gaz aujourd'hui,"
         android:textColor="@color/colorText"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"

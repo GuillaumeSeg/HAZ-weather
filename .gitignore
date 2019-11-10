@@ -24,3 +24,9 @@ gradle/wrapper/gradle-wrapper\.properties
 gradlew
 
 gradlew\.bat
+
+*.aab
+
+keystore.jks
+
+pwd_keystore.txt
