@@ -4,10 +4,13 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.location.Location
+import android.os.Build
 import android.os.Bundle
+import android.text.Html
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.text.HtmlCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -78,15 +81,19 @@ class HomeActivity : AppCompatActivity() {
             current_weather_temperature.text = Utils.displayTemperature(this, currentTemperature)
         })
         homeViewModel.currentTemperatureMax.observe(this, Observer<Double> { currentTemperatureMax ->
-            val tmaxFormatted = String.format(getString(R.string.tmax), Utils.displayTemperature(this, currentTemperatureMax))
+            val tmaxFormatted = Utils.fromHtml(String.format(getString(R.string.tmax), Utils.displayTemperature(this, currentTemperatureMax)))
             current_weather_temperature_max.text = tmaxFormatted
         })
         homeViewModel.currentTemperatureMin.observe(this, Observer<Double> { currentTemperatureMin ->
-            val tminFormatted = String.format(getString(R.string.tmin), Utils.displayTemperature(this, currentTemperatureMin))
+            val tminFormatted = Utils.fromHtml(String.format(getString(R.string.tmin), Utils.displayTemperature(this, currentTemperatureMin)))
             current_weather_temperature_min.text = tminFormatted
         })
         homeViewModel.dewPoint.observe(this, Observer<Double> { dewPoint ->
             current_weather_dew_point_value.text = Utils.displayTemperature(this, dewPoint)
+        })
+
+        homeViewModel.tips.observe(this, Observer<Int> { tipsId ->
+            tips.text = getString(tipsId)
         })
     }
 

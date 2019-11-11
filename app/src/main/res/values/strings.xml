@@ -1,10 +1,16 @@
 <resources>
-    <string name="app_name">HAZ Weather</string>
+    <string name="app_name" translatable="false">HAZ Weather</string>
 
     <string name="unit_K">K</string>
     <string name="unit_F">°F</string>
 
-    <string name="tmax">Tmax -> %s</string>
-    <string name="tmin">Tmin -> %s</string>
+    <string name="tmax"><![CDATA[ T<inf><small>max</small></inf> -> %s ]]></string>
+    <string name="tmin"><![CDATA[ T<inf><small>min</small></inf> -> %s ]]></string>
     <string name="dew_point">point de rosée</string>
+
+    <!-- Tips -->
+    <string name="good_day">Très belle journée à vous !</string>
+    <string name="tips_1">Il est recommandé de porter son masque à gaz aujourd\'hui,</string>
+    <string name="tips_2">Il est conseillé de prendre sa pastille d\'iode dès la matinée,</string>
+    <string name="tips_3">Le couvre feu est instauré à partir de 15h,</string>
 </resources>

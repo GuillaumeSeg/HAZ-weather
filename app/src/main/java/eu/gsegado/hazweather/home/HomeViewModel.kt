@@ -6,6 +6,8 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.crashlytics.android.Crashlytics
+import eu.gsegado.hazweather.Constants
+import eu.gsegado.hazweather.R
 import eu.gsegado.hazweather.models.CurrentWeather
 import eu.gsegado.hazweather.models.DailyWeatherData
 import eu.gsegado.hazweather.repository.WeatherRepository
@@ -30,6 +32,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     val currentTemperatureMax = MutableLiveData<Double>()
     val currentTemperatureMin = MutableLiveData<Double>()
     val dewPoint = MutableLiveData<Double>()
+    val tips = MutableLiveData<Int>()
 
     private val compositeDisposable = CompositeDisposable()
 
@@ -37,6 +40,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
     init {
         computeDate()
+        computeTips()
 
         weatherRepository.weatherBehaviorSubject
             .subscribeOn(Schedulers.io())
@@ -104,5 +108,11 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     private fun computeMaxMinCurrent(dailyWeather: DailyWeatherData) {
         currentTemperatureMax.postValue(Utils.celsiusToKelvin(dailyWeather.temperatureMax))
         currentTemperatureMin.postValue(Utils.celsiusToKelvin(dailyWeather.temperatureLow))
+    }
+
+    private fun computeTips() {
+        val tipsIndex = (Constants.listOfTips.indices).random()
+        val tipsId = Constants.listOfTips[tipsIndex]
+        tips.value = tipsId
     }
 }
