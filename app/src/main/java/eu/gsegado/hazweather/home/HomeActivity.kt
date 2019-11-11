@@ -14,6 +14,7 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import eu.gsegado.hazweather.Constants
 import eu.gsegado.hazweather.R
+import eu.gsegado.hazweather.tools.Utils
 import kotlinx.android.synthetic.main.activity_home.*
 import java.util.*
 
@@ -30,12 +31,7 @@ class HomeActivity : AppCompatActivity() {
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
-        homeViewModel.locationLabelLiveData.observe(this, Observer<String> { locationLabel ->
-            location_label.text = locationLabel
-        })
-        homeViewModel.dateLabelLiveData.observe(this, Observer<String> { dateLabel ->
-            date_label.text = dateLabel
-        })
+        bind()
 
         // Check Permission
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -66,6 +62,32 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
+    }
+
+    private fun bind() {
+        homeViewModel.locationLabelLiveData.observe(this, Observer<String> { locationLabel ->
+            location_label.text = locationLabel
+        })
+        homeViewModel.dateLabelLiveData.observe(this, Observer<String> { dateLabel ->
+            date_label.text = dateLabel
+        })
+        homeViewModel.currentWeatherLabelLiveData.observe(this, Observer<String> { currentWeatherLabel ->
+            current_weather_label.text = currentWeatherLabel
+        })
+        homeViewModel.currentTemperature.observe(this, Observer<Double> { currentTemperature ->
+            current_weather_temperature.text = Utils.displayTemperature(this, currentTemperature)
+        })
+        homeViewModel.currentTemperatureMax.observe(this, Observer<Double> { currentTemperatureMax ->
+            val tmaxFormatted = String.format(getString(R.string.tmax), Utils.displayTemperature(this, currentTemperatureMax))
+            current_weather_temperature_max.text = tmaxFormatted
+        })
+        homeViewModel.currentTemperatureMin.observe(this, Observer<Double> { currentTemperatureMin ->
+            val tminFormatted = String.format(getString(R.string.tmin), Utils.displayTemperature(this, currentTemperatureMin))
+            current_weather_temperature_min.text = tminFormatted
+        })
+        homeViewModel.dewPoint.observe(this, Observer<Double> { dewPoint ->
+            current_weather_dew_point_value.text = Utils.displayTemperature(this, dewPoint)
+        })
     }
 
     private fun getLastKnowLocation() {

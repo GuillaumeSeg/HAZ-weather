@@ -103,7 +103,7 @@
             android:layout_height="wrap_content"
             android:layout_width="0dp"
             android:paddingTop="4dp"
-            android:text="PLUIES ACIDES"
+            tools:text="PLUIES ACIDES"
             android:textStyle="bold"
             android:gravity="center"
             android:textColor="@color/colorText"
@@ -116,11 +116,11 @@
             android:id="@+id/current_weather_temperature"
             android:layout_height="wrap_content"
             android:layout_width="0dp"
-            android:text="276 K"
+            tools:text="276 K"
             android:gravity="center_vertical"
             android:textColor="@color/colorText"
             android:paddingStart="10dp"
-            android:textSize="34sp"
+            android:textSize="35sp"
             app:layout_constraintStart_toEndOf="@id/guideline_ve"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -129,8 +129,8 @@
             android:id="@+id/current_weather_temperature_max"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:text="Tmax -> 288 K"
-            android:gravity="center"
+            tools:text="Tmax -> 288.7 K"
+            android:gravity="start"
             android:textColor="@color/colorText"
             android:paddingEnd="10dp"
             android:paddingStart="20dp"
@@ -143,16 +143,42 @@
             android:id="@+id/current_weather_temperature_min"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:text="Tmin -> 242 K"
-            android:gravity="center"
+            tools:text="Tmin -> 242 K"
+            android:gravity="start"
             android:textColor="@color/colorText"
             android:paddingEnd="10dp"
             android:paddingStart="20dp"
             android:textSize="20sp"
             app:layout_constraintStart_toEndOf="@id/guideline_ve"
-            app:layout_constraintEnd_toStartOf="@id/line_h_3"
             app:layout_constraintTop_toBottomOf="@id/current_weather_temperature_max"
+            app:layout_constraintBottom_toTopOf="@id/current_weather_dew_point_label"/>
+        <TextView
+            android:id="@+id/current_weather_dew_point_label"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="@string/dew_point"
+            android:gravity="start"
+            android:textColor="@color/colorText"
+            android:paddingEnd="10dp"
+            android:paddingStart="20dp"
+            android:textSize="17sp"
+            app:layout_constraintStart_toEndOf="@id/guideline_ve"
+            app:layout_constraintEnd_toStartOf="@id/current_weather_dew_point_value"
+            app:layout_constraintTop_toBottomOf="@id/current_weather_temperature_min"
             app:layout_constraintBottom_toBottomOf="parent"/>
+        <TextView
+            android:id="@+id/current_weather_dew_point_value"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            tools:text="276.4 K"
+            android:gravity="start"
+            android:textColor="@color/colorText"
+            android:paddingEnd="10dp"
+            android:paddingStart="20dp"
+            android:textSize="17sp"
+            app:layout_constraintStart_toEndOf="@id/current_weather_dew_point_label"
+            app:layout_constraintTop_toTopOf="@id/current_weather_dew_point_label"
+            app:layout_constraintBottom_toBottomOf="@id/current_weather_dew_point_label"/>
         <View
             android:id="@+id/line_h_3"
             android:layout_marginTop="5dp"
@@ -163,7 +189,16 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/current_weather_temperature_max"
             app:layout_constraintBottom_toBottomOf="@id/current_weather_temperature_max"/>
-
+        <View
+            android:id="@+id/line_h_4"
+            android:layout_marginTop="5dp"
+            android:layout_width="0dp"
+            android:layout_height="4dp"
+            android:background="@color/colorText"
+            app:layout_constraintStart_toStartOf="@id/guideline_ve"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/current_weather_dew_point_label"
+            app:layout_constraintBottom_toBottomOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
@@ -177,5 +212,26 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/current_weather_container"
         app:layout_constraintBottom_toBottomOf="parent"/>
+    <View
+        android:id="@+id/line_h_5"
+        android:layout_marginTop="5dp"
+        android:layout_width="0dp"
+        android:layout_height="4dp"
+        android:background="@color/colorText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/good_day"
+        app:layout_constraintTop_toTopOf="@id/good_day"
+        app:layout_constraintBottom_toBottomOf="@id/good_day"/>
+    <TextView
+        android:id="@+id/good_day"
+        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:text="Très belle journée à vous !"
+        android:textColor="@color/colorText"
+        android:paddingStart="10dp"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@id/line_h_5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tips"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

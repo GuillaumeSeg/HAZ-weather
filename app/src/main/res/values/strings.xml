@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">HAZ Weather</string>
+
+    <string name="unit_K">K</string>
+    <string name="unit_F">°F</string>
+
+    <string name="tmax">Tmax -> %s</string>
+    <string name="tmin">Tmin -> %s</string>
+    <string name="dew_point">point de rosée</string>
 </resources>

@@ -1,6 +1,12 @@
 package eu.gsegado.hazweather.tools
 
+import android.content.Context
 import eu.gsegado.hazweather.Constants
+import eu.gsegado.hazweather.R
+import java.math.RoundingMode
+import java.text.DecimalFormat
+import java.text.DecimalFormatSymbols
+import java.util.*
 
 object Utils {
 
@@ -14,5 +20,15 @@ object Utils {
         val sectorLabel = Constants.labelSector[rnd]
         val number = (9..99).random()
         return "$sectorLabel $letter$number"
+    }
+
+    fun celsiusToKelvin(t: Double): Double {
+        return t+273.15
+    }
+
+    fun displayTemperature(ctx: Context, temp: Double): String {
+        val df = DecimalFormat("#.#", DecimalFormatSymbols.getInstance(Locale.US))
+        df.roundingMode = RoundingMode.CEILING
+        return df.format(temp) +" "+ ctx.getString(R.string.unit_K)
     }
 }
