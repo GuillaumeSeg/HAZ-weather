@@ -13,4 +13,7 @@
     <string name="tips_1">Il est recommandé de porter son masque à gaz aujourd\'hui,</string>
     <string name="tips_2">Il est conseillé de prendre sa pastille d\'iode dès la matinée,</string>
     <string name="tips_3">Le couvre feu est instauré à partir de 15h,</string>
+
+    <string name="name_moon_alpha">Lune α : HK39B</string>
+    <string name="name_moon_zeta">Lune ζ : PA812</string>
 </resources>

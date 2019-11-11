@@ -91,7 +91,6 @@ class HomeActivity : AppCompatActivity() {
         homeViewModel.dewPoint.observe(this, Observer<Double> { dewPoint ->
             current_weather_dew_point_value.text = Utils.displayTemperature(this, dewPoint)
         })
-
         homeViewModel.tips.observe(this, Observer<Int> { tipsId ->
             tips.text = getString(tipsId)
         })

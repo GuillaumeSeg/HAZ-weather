@@ -72,14 +72,12 @@
 
 
 
-
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/current_weather_container"
         android:layout_height="wrap_content"
         android:layout_width="0dp"
         app:layout_constraintTop_toBottomOf="@id/date_label"
-        app:layout_constraintBottom_toTopOf="@id/tips"
+        app:layout_constraintBottom_toTopOf="@id/tips_container"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
         <androidx.constraintlayout.widget.Guideline
@@ -202,37 +200,92 @@
             app:layout_constraintBottom_toBottomOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <TextView
-        android:id="@+id/tips"
-        android:layout_height="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/tips_container"
         android:layout_width="match_parent"
-        tools:text="Il est recommandé de porter son masque à gaz aujourd'hui,"
-        android:textColor="@color/colorText"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/current_weather_container"
-        app:layout_constraintBottom_toBottomOf="parent"/>
-    <View
-        android:id="@+id/line_h_5"
-        android:layout_marginTop="5dp"
-        android:layout_width="0dp"
-        android:layout_height="4dp"
-        android:background="@color/colorText"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/good_day"
-        app:layout_constraintTop_toTopOf="@id/good_day"
-        app:layout_constraintBottom_toBottomOf="@id/good_day"/>
-    <TextView
-        android:id="@+id/good_day"
         android:layout_height="wrap_content"
-        android:layout_width="0dp"
-        android:text="@string/good_day"
-        android:textColor="@color/colorText"
-        android:paddingStart="10dp"
-        android:textSize="16sp"
-        app:layout_constraintStart_toEndOf="@id/line_h_5"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tips"/>
+        app:layout_constraintTop_toBottomOf="@id/current_weather_container"
+        app:layout_constraintBottom_toTopOf="@id/moon_phase_container"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+        <TextView
+            android:id="@+id/tips"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            tools:text="Il est recommandé de porter son masque à gaz aujourd'hui,"
+            android:textColor="@color/colorText"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+        <View
+            android:id="@+id/line_h_5"
+            android:layout_marginTop="5dp"
+            android:layout_width="0dp"
+            android:layout_height="4dp"
+            android:background="@color/colorText"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/good_day"
+            app:layout_constraintTop_toTopOf="@id/good_day"
+            app:layout_constraintBottom_toBottomOf="@id/good_day"/>
+        <TextView
+            android:id="@+id/good_day"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="@string/good_day"
+            android:textColor="@color/colorText"
+            android:paddingStart="10dp"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@id/line_h_5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tips"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/moon_phase_container"
+        android:layout_height="250dp"
+        android:layout_width="0dp"
+        app:layout_constraintTop_toBottomOf="@id/tips_container"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_moon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5"/>
+        <include
+            android:id="@+id/moon_1"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            layout="@layout/layout_moon_phase"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/guideline_moon"/>
+        <include
+            android:id="@+id/moon_2"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            layout="@layout/layout_moon_phase"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/guideline_moon"/>
+        <View
+            android:id="@+id/line_v_1"
+            android:layout_marginTop="35dp"
+            android:layout_marginBottom="35dp"
+            android:layout_width="3dp"
+            android:layout_height="0dp"
+            android:visibility="invisible"
+            android:background="@color/colorText"
+            app:layout_constraintStart_toStartOf="@id/guideline_moon"
+            app:layout_constraintEnd_toEndOf="@id/guideline_moon"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
