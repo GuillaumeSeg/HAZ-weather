@@ -4,13 +4,10 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.location.Location
-import android.os.Build
 import android.os.Bundle
-import android.text.Html
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.text.HtmlCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -19,6 +16,7 @@ import eu.gsegado.hazweather.Constants
 import eu.gsegado.hazweather.R
 import eu.gsegado.hazweather.tools.Utils
 import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.layout_moon_phase.view.*
 import java.util.*
 
 class HomeActivity : AppCompatActivity() {
@@ -93,6 +91,18 @@ class HomeActivity : AppCompatActivity() {
         })
         homeViewModel.tips.observe(this, Observer<Int> { tipsId ->
             tips.text = getString(tipsId)
+        })
+
+        moon_1.moon_name.text = getString(R.string.name_moon_alpha)
+        moon_2.moon_name.text = getString(R.string.name_moon_zeta)
+
+        homeViewModel.moon1PhaseLiveData.observe(this, Observer<Pair<Int, Int>> { moonPhaseIds ->
+            moon_1.moon_phase.text = getString(moonPhaseIds.first)
+            moon_1.moon_icon.setImageResource(moonPhaseIds.second)
+        })
+        homeViewModel.moon2PhaseLiveData.observe(this, Observer<Pair<Int, Int>> { moonPhaseIds ->
+            moon_2.moon_phase.text = getString(moonPhaseIds.first)
+            moon_2.moon_icon.setImageResource(moonPhaseIds.second)
         })
     }
 

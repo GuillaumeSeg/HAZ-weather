@@ -16,4 +16,15 @@
 
     <string name="name_moon_alpha">Lune α : HK39B</string>
     <string name="name_moon_zeta">Lune ζ : PA812</string>
+
+    <!-- Moon Phasis -->
+    <string name="moon_0">Nouvelle lune</string>
+    <string name="moon_1">Premier croissant</string>
+    <string name="moon_2">Premier quartier</string>
+    <string name="moon_3">Gibbeuse ↗</string>
+    <string name="moon_4">Pleine lune</string>
+    <string name="moon_5">Gibbeuse ↘</string>
+    <string name="moon_6">Dernier quartier</string>
+    <string name="moon_7">Dernier croissant</string>
+
 </resources>

@@ -42,4 +42,36 @@ object Utils {
             Html.fromHtml(str)
         }
     }
+
+    fun getPhase(phase: Float): Pair<Int, Int>? {
+        return when (phase) {
+            in 0.0f..0.1249f -> {
+                Pair(R.string.moon_0, R.drawable.moon_0)
+            }
+            in 0.125f..0.249f -> {
+                Pair(R.string.moon_1, R.drawable.moon_1)
+            }
+            in 0.25f..0.3749f -> {
+                Pair(R.string.moon_2, R.drawable.moon_2)
+            }
+            in 0.375f..0.49f -> {
+                Pair(R.string.moon_3, R.drawable.moon_3)
+            }
+            in 0.5f..0.6249f -> {
+                Pair(R.string.moon_4, R.drawable.moon_4)
+            }
+            in 0.625f..0.749f -> {
+                Pair(R.string.moon_5, R.drawable.moon_5)
+            }
+            in 0.75f..0.8749f -> {
+                Pair(R.string.moon_6, R.drawable.moon_6)
+            }
+            in 0.875f..1.0f -> {
+                Pair(R.string.moon_7, R.drawable.moon_7)
+            }
+            else -> {
+                null
+            }
+        }
+    }
 }

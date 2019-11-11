@@ -19,6 +19,7 @@ import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.math.cos
 
 class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -33,6 +34,8 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     val currentTemperatureMin = MutableLiveData<Double>()
     val dewPoint = MutableLiveData<Double>()
     val tips = MutableLiveData<Int>()
+    val moon1PhaseLiveData = MutableLiveData<Pair<Int, Int>>()
+    val moon2PhaseLiveData = MutableLiveData<Pair<Int, Int>>()
 
     private val compositeDisposable = CompositeDisposable()
 
@@ -46,7 +49,10 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
             .subscribeOn(Schedulers.io())
             .map { result ->
                 computeCurrentWeather(result.current)
-                computeMaxMinCurrent(result.daily.data[0])
+                if (result.daily.data.isNotEmpty()) {
+                    computeMaxMinCurrent(result.daily.data[0])
+                    computeMoonsPhasis(result.daily.data[0].moonPhase)
+                }
                 return@map result
             }
             .observeOn(AndroidSchedulers.mainThread())
@@ -114,5 +120,14 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         val tipsIndex = (Constants.listOfTips.indices).random()
         val tipsId = Constants.listOfTips[tipsIndex]
         tips.value = tipsId
+    }
+
+    private fun computeMoonsPhasis(moon1Phase: Float) {
+        Utils.getPhase(moon1Phase)?.let {
+            moon1PhaseLiveData.postValue(it)
+        }
+        Utils.getPhase((cos(5.0f*moon1Phase+20.0f)+1.0f)/2.0f)?.let {
+            moon2PhaseLiveData.postValue(it)
+        }
     }
 }

@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name" translatable="false">HAZ Weather</string>
+
+    <string name="unit_K">K</string>
+    <string name="unit_F">°F</string>
+
+    <string name="tmax"><![CDATA[ T<inf><small>max</small></inf> -> %s ]]></string>
+    <string name="tmin"><![CDATA[ T<inf><small>min</small></inf> -> %s ]]></string>
+    <string name="dew_point">dew point</string>
+
+    <string name="name_moon_alpha">Moon α : HK39B</string>
+    <string name="name_moon_zeta">Moon ζ : PA812</string>
+
+    <!-- Moon Phasis -->
+    <string name="moon_0">New moon</string>
+    <string name="moon_1">Waxing crescent</string>
+    <string name="moon_2">First quarter</string>
+    <string name="moon_3">Waxing gibbous</string>
+    <string name="moon_4">Full moon</string>
+    <string name="moon_5">Waning gibbous</string>
+    <string name="moon_6">Third quarter</string>
+    <string name="moon_7">Waning crescent</string>
+</resources>
