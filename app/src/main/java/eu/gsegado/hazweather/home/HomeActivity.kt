@@ -1,6 +1,7 @@
 package eu.gsegado.hazweather.home
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.location.Location
@@ -15,6 +16,7 @@ import com.google.android.gms.location.LocationServices
 import eu.gsegado.hazweather.Constants
 import eu.gsegado.hazweather.R
 import eu.gsegado.hazweather.models.DailyWeatherData
+import eu.gsegado.hazweather.settings.SettingsActivity
 import eu.gsegado.hazweather.tools.Utils
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.layout_daily.view.*
@@ -102,6 +104,10 @@ class HomeActivity : AppCompatActivity() {
 
         moon_1.moon_name.text = getString(R.string.name_moon_alpha)
         moon_2.moon_name.text = getString(R.string.name_moon_zeta)
+
+        moon_1.setOnClickListener {
+            startActivity(Intent(this, SettingsActivity::class.java))
+        }
 
         homeViewModel.moon1PhaseLiveData.observe(this, Observer<Pair<Int, Int>> { moonPhaseIds ->
             moon_1.moon_phase.text = getString(moonPhaseIds.first)

@@ -83,7 +83,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
     fun computeDate() {
         val cal = Calendar.getInstance()
-        cal.add(Calendar.YEAR, 12)
+        cal.add(Calendar.YEAR, 22)
         val dateFormat = SimpleDateFormat("E dd.MM.y HH:mm", Locale.getDefault())
         val date = dateFormat.format(cal.time)
         dateLabelLiveData.value = date
