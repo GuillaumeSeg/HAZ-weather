@@ -14,9 +14,12 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import eu.gsegado.hazweather.Constants
 import eu.gsegado.hazweather.R
+import eu.gsegado.hazweather.models.DailyWeatherData
 import eu.gsegado.hazweather.tools.Utils
 import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.layout_daily.view.*
 import kotlinx.android.synthetic.main.layout_moon_phase.view.*
+import org.joda.time.DateTime
 import java.util.*
 
 class HomeActivity : AppCompatActivity() {
@@ -76,18 +79,18 @@ class HomeActivity : AppCompatActivity() {
             current_weather_label.text = currentWeatherLabel
         })
         homeViewModel.currentTemperature.observe(this, Observer<Double> { currentTemperature ->
-            current_weather_temperature.text = Utils.displayTemperature(this, currentTemperature)
+            current_weather_temperature.text = Utils.displayTemperature(this, currentTemperature, "#.#")
         })
         homeViewModel.currentTemperatureMax.observe(this, Observer<Double> { currentTemperatureMax ->
-            val tmaxFormatted = Utils.fromHtml(String.format(getString(R.string.tmax), Utils.displayTemperature(this, currentTemperatureMax)))
+            val tmaxFormatted = Utils.fromHtml(String.format(getString(R.string.tmax), Utils.displayTemperature(this, currentTemperatureMax, "#.#")))
             current_weather_temperature_max.text = tmaxFormatted
         })
         homeViewModel.currentTemperatureMin.observe(this, Observer<Double> { currentTemperatureMin ->
-            val tminFormatted = Utils.fromHtml(String.format(getString(R.string.tmin), Utils.displayTemperature(this, currentTemperatureMin)))
+            val tminFormatted = Utils.fromHtml(String.format(getString(R.string.tmin), Utils.displayTemperature(this, currentTemperatureMin, "#.#")))
             current_weather_temperature_min.text = tminFormatted
         })
         homeViewModel.dewPoint.observe(this, Observer<Double> { dewPoint ->
-            current_weather_dew_point_value.text = Utils.displayTemperature(this, dewPoint)
+            current_weather_dew_point_value.text = Utils.displayTemperature(this, dewPoint, "#.#")
         })
         homeViewModel.tips.observe(this, Observer<Int> { tipsId ->
             tips.text = getString(tipsId)
@@ -103,6 +106,31 @@ class HomeActivity : AppCompatActivity() {
         homeViewModel.moon2PhaseLiveData.observe(this, Observer<Pair<Int, Int>> { moonPhaseIds ->
             moon_2.moon_phase.text = getString(moonPhaseIds.first)
             moon_2.moon_icon.setImageResource(moonPhaseIds.second)
+        })
+
+        homeViewModel.dailyWeatherDataLiveData1.observe(this, Observer<DailyWeatherData> { weather ->
+            val dateTime = DateTime(weather.day.toLong()*1000)
+            day1.date.text = dateTime.dayOfWeek().asShortText.capitalize()
+            day1.tmax.text = String.format(getString(R.string.tmax_daily), Utils.displayTemperature(this, Utils.celsiusToKelvin(weather.temperatureMax), "#"))
+            day1.tmin.text = String.format(getString(R.string.tmin_daily), Utils.displayTemperature(this, Utils.celsiusToKelvin(weather.temperatureMin), "#"))
+        })
+        homeViewModel.dailyWeatherDataLiveData2.observe(this, Observer<DailyWeatherData> { weather ->
+            val dateTime = DateTime(weather.day.toLong()*1000)
+            day2.date.text = dateTime.dayOfWeek().asShortText.capitalize()
+            day2.tmax.text = String.format(getString(R.string.tmax_daily), Utils.displayTemperature(this, Utils.celsiusToKelvin(weather.temperatureMax), "#"))
+            day2.tmin.text = String.format(getString(R.string.tmin_daily), Utils.displayTemperature(this, Utils.celsiusToKelvin(weather.temperatureMin), "#"))
+        })
+        homeViewModel.dailyWeatherDataLiveData3.observe(this, Observer<DailyWeatherData> { weather ->
+            val dateTime = DateTime(weather.day.toLong()*1000)
+            day3.date.text = dateTime.dayOfWeek().asShortText.capitalize()
+            day3.tmax.text = String.format(getString(R.string.tmax_daily), Utils.displayTemperature(this, Utils.celsiusToKelvin(weather.temperatureMax), "#"))
+            day3.tmin.text = String.format(getString(R.string.tmin_daily), Utils.displayTemperature(this, Utils.celsiusToKelvin(weather.temperatureMin), "#"))
+        })
+        homeViewModel.dailyWeatherDataLiveData4.observe(this, Observer<DailyWeatherData> { weather ->
+            val dateTime = DateTime(weather.day.toLong()*1000)
+            day4.date.text = dateTime.dayOfWeek().asShortText.capitalize()
+            day4.tmax.text = String.format(getString(R.string.tmax_daily), Utils.displayTemperature(this, Utils.celsiusToKelvin(weather.temperatureMax), "#"))
+            day4.tmin.text = String.format(getString(R.string.tmin_daily), Utils.displayTemperature(this, Utils.celsiusToKelvin(weather.temperatureMin), "#"))
         })
     }
 

@@ -25,6 +25,18 @@
             android:name=".home.HomeActivity"
             android:screenOrientation="portrait">
         </activity>
+
+        <receiver
+            android:name=".widget.WeatherAppWidgetProvider"
+            android:label="@string/app_name"
+            android:icon="@mipmap/ic_launcher">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+            </intent-filter>
+            <meta-data android:name="android.appwidget.provider"
+                android:resource="@xml/appwidget_info" />
+        </receiver>
+
     </application>
 
 </manifest>

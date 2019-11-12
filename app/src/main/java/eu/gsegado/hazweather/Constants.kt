@@ -12,6 +12,10 @@ object Constants {
     val listOfTips = listOf(
                         R.string.tips_1,
                         R.string.tips_2,
-                        R.string.tips_3
+                        R.string.tips_3,
+                        R.string.tips_4,
+                        R.string.tips_5,
+                        R.string.tips_6,
+                        R.string.tips_7
                     )
 }

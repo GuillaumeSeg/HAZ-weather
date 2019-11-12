@@ -36,7 +36,7 @@
     <ImageView
         android:id="@+id/moon_icon"
         android:layout_width="0dp"
-        android:layout_height="200dp"
+        android:layout_height="165dp"
         tools:src="@drawable/moon_1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/guideline"

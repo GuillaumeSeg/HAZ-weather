@@ -7,7 +7,6 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.crashlytics.android.Crashlytics
 import eu.gsegado.hazweather.Constants
-import eu.gsegado.hazweather.R
 import eu.gsegado.hazweather.models.CurrentWeather
 import eu.gsegado.hazweather.models.DailyWeatherData
 import eu.gsegado.hazweather.repository.WeatherRepository
@@ -36,6 +35,10 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     val tips = MutableLiveData<Int>()
     val moon1PhaseLiveData = MutableLiveData<Pair<Int, Int>>()
     val moon2PhaseLiveData = MutableLiveData<Pair<Int, Int>>()
+    val dailyWeatherDataLiveData1 = MutableLiveData<DailyWeatherData>()
+    val dailyWeatherDataLiveData2 = MutableLiveData<DailyWeatherData>()
+    val dailyWeatherDataLiveData3 = MutableLiveData<DailyWeatherData>()
+    val dailyWeatherDataLiveData4 = MutableLiveData<DailyWeatherData>()
 
     private val compositeDisposable = CompositeDisposable()
 
@@ -51,7 +54,8 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
                 computeCurrentWeather(result.current)
                 if (result.daily.data.isNotEmpty()) {
                     computeMaxMinCurrent(result.daily.data[0])
-                    computeMoonsPhasis(result.daily.data[0].moonPhase)
+                    computeMoonsPhases(result.daily.data[0].moonPhase)
+                    computeNextDays(result.daily.data)
                 }
                 return@map result
             }
@@ -113,7 +117,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
     private fun computeMaxMinCurrent(dailyWeather: DailyWeatherData) {
         currentTemperatureMax.postValue(Utils.celsiusToKelvin(dailyWeather.temperatureMax))
-        currentTemperatureMin.postValue(Utils.celsiusToKelvin(dailyWeather.temperatureLow))
+        currentTemperatureMin.postValue(Utils.celsiusToKelvin(dailyWeather.temperatureMin))
     }
 
     private fun computeTips() {
@@ -122,12 +126,29 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         tips.value = tipsId
     }
 
-    private fun computeMoonsPhasis(moon1Phase: Float) {
+    private fun computeMoonsPhases(moon1Phase: Float) {
         Utils.getPhase(moon1Phase)?.let {
             moon1PhaseLiveData.postValue(it)
         }
         Utils.getPhase((cos(5.0f*moon1Phase+20.0f)+1.0f)/2.0f)?.let {
             moon2PhaseLiveData.postValue(it)
+        }
+    }
+
+    private fun computeNextDays(days: List<DailyWeatherData>) {
+        if (days.isNotEmpty()) {
+            if (days.size > 1) {
+                dailyWeatherDataLiveData1.postValue(days[1])
+            }
+            if (days.size > 2) {
+                dailyWeatherDataLiveData2.postValue(days[2])
+            }
+            if (days.size > 3) {
+                dailyWeatherDataLiveData3.postValue(days[3])
+            }
+            if (days.size > 4) {
+                dailyWeatherDataLiveData4.postValue(days[4])
+            }
         }
     }
 }
