@@ -37,4 +37,18 @@
     <string name="moon_6">Dernier quartier</string>
     <string name="moon_7">Dernier croissant</string>
 
+    <!-- Type weather -->
+    <string name="meteorites">chute de météorites</string>
+    <string name="haze">brume non toxique</string>
+    <string name="acid_rains">pluies acides</string>
+    <string name="ashes_smoke">nuage de cendres</string>
+    <string name="hurricane">ouragan</string>
+    <string name="radioactive_waste">retombées radioactives</string>
+    <string name="blizzard">blizzard</string>
+    <string name="dry_storm">orage sec</string>
+    <string name="heat_wave">vague de chaleur</string>
+    <string name="dry_ice">glace carbonique</string>
+    <string name="hailstone">averse de grêle</string>
+    <string name="corrosive_fog">brouillard corrosif</string>
+
 </resources>

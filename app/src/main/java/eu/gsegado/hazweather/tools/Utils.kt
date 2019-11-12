@@ -74,4 +74,48 @@ object Utils {
             }
         }
     }
+
+    fun getWeatherType(icon: String): Pair<Int, Int> {
+        return when (icon) {
+            "rain" -> {
+                Pair(R.drawable.acid_rains, R.string.acid_rains)
+            }
+            "cloudy" -> {
+                Pair(R.drawable.meteorites2, R.string.meteorites)
+            }
+            "partly-cloudy-day" -> {
+                Pair(R.drawable.hailstone, R.string.hailstone)
+            }
+            "partly-cloudy-night" -> {
+                Pair(R.drawable.non_toxic_haze2, R.string.haze)
+            }
+            "clear-day" -> {
+                Pair(R.drawable.ashes_smoke, R.string.ashes_smoke)
+            }
+            "clear-night" -> {
+                Pair(R.drawable.corrosive_fog, R.string.corrosive_fog)
+            }
+            "fog" -> {
+                Pair(R.drawable.dry_ice, R.string.dry_ice)
+            }
+            "snow" -> {
+                Pair(R.drawable.blizzard, R.string.blizzard)
+            }
+            "sleet" -> {
+                Pair(R.drawable.radioactive_waste, R.string.radioactive_waste)
+            }
+            "wind" -> {
+                Pair(R.drawable.hurricane, R.string.hurricane)
+            }
+            "thunderstorm" -> {
+                Pair(R.drawable.dry_storm, R.string.dry_storm)
+            }
+            "tornado" -> {
+                Pair(R.drawable.heat_wave, R.string.heat_wave)
+            }
+            else -> {
+                Pair(R.drawable.non_toxic_haze2, R.string.haze)
+            }
+        }
+    }
 }

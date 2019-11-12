@@ -89,6 +89,10 @@ class HomeActivity : AppCompatActivity() {
             val tminFormatted = Utils.fromHtml(String.format(getString(R.string.tmin), Utils.displayTemperature(this, currentTemperatureMin, "#.#")))
             current_weather_temperature_min.text = tminFormatted
         })
+        homeViewModel.currentWeatherDisplayLiveData.observe(this, Observer<Pair<Int, Int>> { weatherDisplayIds ->
+            current_weather_img.setImageResource(weatherDisplayIds.first)
+            current_weather_label.text = getString(weatherDisplayIds.second).toUpperCase()
+        })
         homeViewModel.dewPoint.observe(this, Observer<Double> { dewPoint ->
             current_weather_dew_point_value.text = Utils.displayTemperature(this, dewPoint, "#.#")
         })
@@ -113,24 +117,36 @@ class HomeActivity : AppCompatActivity() {
             day1.date.text = dateTime.dayOfWeek().asShortText.capitalize()
             day1.tmax.text = String.format(getString(R.string.tmax_daily), Utils.displayTemperature(this, Utils.celsiusToKelvin(weather.temperatureMax), "#"))
             day1.tmin.text = String.format(getString(R.string.tmin_daily), Utils.displayTemperature(this, Utils.celsiusToKelvin(weather.temperatureMin), "#"))
+            val weatherDisplay = Utils.getWeatherType(weather.displayIcon)
+            day1.icon.setImageResource(weatherDisplay.first)
+            day1.label.text = getString(weatherDisplay.second)
         })
         homeViewModel.dailyWeatherDataLiveData2.observe(this, Observer<DailyWeatherData> { weather ->
             val dateTime = DateTime(weather.day.toLong()*1000)
             day2.date.text = dateTime.dayOfWeek().asShortText.capitalize()
             day2.tmax.text = String.format(getString(R.string.tmax_daily), Utils.displayTemperature(this, Utils.celsiusToKelvin(weather.temperatureMax), "#"))
             day2.tmin.text = String.format(getString(R.string.tmin_daily), Utils.displayTemperature(this, Utils.celsiusToKelvin(weather.temperatureMin), "#"))
+            val weatherDisplay = Utils.getWeatherType(weather.displayIcon)
+            day2.icon.setImageResource(weatherDisplay.first)
+            day2.label.text = getString(weatherDisplay.second)
         })
         homeViewModel.dailyWeatherDataLiveData3.observe(this, Observer<DailyWeatherData> { weather ->
             val dateTime = DateTime(weather.day.toLong()*1000)
             day3.date.text = dateTime.dayOfWeek().asShortText.capitalize()
             day3.tmax.text = String.format(getString(R.string.tmax_daily), Utils.displayTemperature(this, Utils.celsiusToKelvin(weather.temperatureMax), "#"))
             day3.tmin.text = String.format(getString(R.string.tmin_daily), Utils.displayTemperature(this, Utils.celsiusToKelvin(weather.temperatureMin), "#"))
+            val weatherDisplay = Utils.getWeatherType(weather.displayIcon)
+            day3.icon.setImageResource(weatherDisplay.first)
+            day3.label.text = getString(weatherDisplay.second)
         })
         homeViewModel.dailyWeatherDataLiveData4.observe(this, Observer<DailyWeatherData> { weather ->
             val dateTime = DateTime(weather.day.toLong()*1000)
             day4.date.text = dateTime.dayOfWeek().asShortText.capitalize()
             day4.tmax.text = String.format(getString(R.string.tmax_daily), Utils.displayTemperature(this, Utils.celsiusToKelvin(weather.temperatureMax), "#"))
             day4.tmin.text = String.format(getString(R.string.tmin_daily), Utils.displayTemperature(this, Utils.celsiusToKelvin(weather.temperatureMin), "#"))
+            val weatherDisplay = Utils.getWeatherType(weather.displayIcon)
+            day4.icon.setImageResource(weatherDisplay.first)
+            day4.label.text = getString(weatherDisplay.second)
         })
     }
 

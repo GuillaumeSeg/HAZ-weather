@@ -31,6 +31,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     val currentTemperature = MutableLiveData<Double>()
     val currentTemperatureMax = MutableLiveData<Double>()
     val currentTemperatureMin = MutableLiveData<Double>()
+    val currentWeatherDisplayLiveData = MutableLiveData<Pair<Int, Int>>()
     val dewPoint = MutableLiveData<Double>()
     val tips = MutableLiveData<Int>()
     val moon1PhaseLiveData = MutableLiveData<Pair<Int, Int>>()
@@ -113,6 +114,8 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
         currentTemperature.postValue(Utils.celsiusToKelvin(current.temperature))
         dewPoint.postValue(Utils.celsiusToKelvin(current.dewPoint))
+
+        currentWeatherDisplayLiveData.postValue(Utils.getWeatherType(current.displayIcon))
     }
 
     private fun computeMaxMinCurrent(dailyWeather: DailyWeatherData) {
