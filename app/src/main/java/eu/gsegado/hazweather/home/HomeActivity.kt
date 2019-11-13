@@ -29,6 +29,8 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var homeViewModel: HomeViewModel
     private lateinit var fusedLocationClient: FusedLocationProviderClient
 
+    private var unitLabel = Constants.UnitSystem.KELVIN
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
@@ -71,6 +73,14 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun bind() {
+        settings.setOnClickListener {
+            startActivity(Intent(this, SettingsActivity::class.java))
+        }
+
+        homeViewModel.unitLabelTempLiveData.observe(this, Observer<Constants.UnitSystem> { unit ->
+            unitLabel = unit
+        })
+
         homeViewModel.locationLabelLiveData.observe(this, Observer<String> { locationLabel ->
             location_label.text = locationLabel
         })
@@ -81,14 +91,14 @@ class HomeActivity : AppCompatActivity() {
             current_weather_label.text = currentWeatherLabel
         })
         homeViewModel.currentTemperature.observe(this, Observer<Double> { currentTemperature ->
-            current_weather_temperature.text = Utils.displayTemperature(this, currentTemperature, "#.#")
+            current_weather_temperature.text = Utils.displayTemperature(this, currentTemperature, "#.#", unitLabel)
         })
         homeViewModel.currentTemperatureMax.observe(this, Observer<Double> { currentTemperatureMax ->
-            val tmaxFormatted = Utils.fromHtml(String.format(getString(R.string.tmax), Utils.displayTemperature(this, currentTemperatureMax, "#.#")))
+            val tmaxFormatted = Utils.fromHtml(String.format(getString(R.string.tmax), Utils.displayTemperature(this, currentTemperatureMax, "#.#", unitLabel)))
             current_weather_temperature_max.text = tmaxFormatted
         })
         homeViewModel.currentTemperatureMin.observe(this, Observer<Double> { currentTemperatureMin ->
-            val tminFormatted = Utils.fromHtml(String.format(getString(R.string.tmin), Utils.displayTemperature(this, currentTemperatureMin, "#.#")))
+            val tminFormatted = Utils.fromHtml(String.format(getString(R.string.tmin), Utils.displayTemperature(this, currentTemperatureMin, "#.#", unitLabel)))
             current_weather_temperature_min.text = tminFormatted
         })
         homeViewModel.currentWeatherDisplayLiveData.observe(this, Observer<Pair<Int, Int>> { weatherDisplayIds ->
@@ -96,7 +106,7 @@ class HomeActivity : AppCompatActivity() {
             current_weather_label.text = getString(weatherDisplayIds.second).toUpperCase()
         })
         homeViewModel.dewPoint.observe(this, Observer<Double> { dewPoint ->
-            current_weather_dew_point_value.text = Utils.displayTemperature(this, dewPoint, "#.#")
+            current_weather_dew_point_value.text = Utils.displayTemperature(this, dewPoint, "#.#", unitLabel)
         })
         homeViewModel.tips.observe(this, Observer<Int> { tipsId ->
             tips.text = getString(tipsId)
@@ -104,10 +114,6 @@ class HomeActivity : AppCompatActivity() {
 
         moon_1.moon_name.text = getString(R.string.name_moon_alpha)
         moon_2.moon_name.text = getString(R.string.name_moon_zeta)
-
-        moon_1.setOnClickListener {
-            startActivity(Intent(this, SettingsActivity::class.java))
-        }
 
         homeViewModel.moon1PhaseLiveData.observe(this, Observer<Pair<Int, Int>> { moonPhaseIds ->
             moon_1.moon_phase.text = getString(moonPhaseIds.first)
@@ -121,8 +127,17 @@ class HomeActivity : AppCompatActivity() {
         homeViewModel.dailyWeatherDataLiveData1.observe(this, Observer<DailyWeatherData> { weather ->
             val dateTime = DateTime(weather.day.toLong()*1000)
             day1.date.text = dateTime.dayOfWeek().asShortText.capitalize()
-            day1.tmax.text = String.format(getString(R.string.tmax_daily), Utils.displayTemperature(this, Utils.celsiusToKelvin(weather.temperatureMax), "#"))
-            day1.tmin.text = String.format(getString(R.string.tmin_daily), Utils.displayTemperature(this, Utils.celsiusToKelvin(weather.temperatureMin), "#"))
+            when (unitLabel) {
+                Constants.UnitSystem.KELVIN -> {
+                    day1.tmax.text = String.format(getString(R.string.tmax_daily), Utils.displayTemperature(this, Utils.celsiusToKelvin(weather.temperatureMax), "#", unitLabel))
+                    day1.tmin.text = String.format(getString(R.string.tmin_daily), Utils.displayTemperature(this, Utils.celsiusToKelvin(weather.temperatureMin), "#", unitLabel))
+                }
+                Constants.UnitSystem.FAHRENHEIT -> {
+                    day1.tmax.text = String.format(getString(R.string.tmax_daily), Utils.displayTemperature(this, Utils.celsiusToFahrenheit(weather.temperatureMax), "#", unitLabel))
+                    day1.tmin.text = String.format(getString(R.string.tmin_daily), Utils.displayTemperature(this, Utils.celsiusToFahrenheit(weather.temperatureMin), "#", unitLabel))
+                }
+            }
+
             val weatherDisplay = Utils.getWeatherType(weather.displayIcon)
             day1.icon.setImageResource(weatherDisplay.first)
             day1.label.text = getString(weatherDisplay.second)
@@ -130,8 +145,16 @@ class HomeActivity : AppCompatActivity() {
         homeViewModel.dailyWeatherDataLiveData2.observe(this, Observer<DailyWeatherData> { weather ->
             val dateTime = DateTime(weather.day.toLong()*1000)
             day2.date.text = dateTime.dayOfWeek().asShortText.capitalize()
-            day2.tmax.text = String.format(getString(R.string.tmax_daily), Utils.displayTemperature(this, Utils.celsiusToKelvin(weather.temperatureMax), "#"))
-            day2.tmin.text = String.format(getString(R.string.tmin_daily), Utils.displayTemperature(this, Utils.celsiusToKelvin(weather.temperatureMin), "#"))
+            when (unitLabel) {
+                Constants.UnitSystem.KELVIN -> {
+                    day2.tmax.text = String.format(getString(R.string.tmax_daily), Utils.displayTemperature(this, Utils.celsiusToKelvin(weather.temperatureMax), "#", unitLabel))
+                    day2.tmin.text = String.format(getString(R.string.tmin_daily), Utils.displayTemperature(this, Utils.celsiusToKelvin(weather.temperatureMin), "#", unitLabel))
+                }
+                Constants.UnitSystem.FAHRENHEIT -> {
+                    day2.tmax.text = String.format(getString(R.string.tmax_daily), Utils.displayTemperature(this, Utils.celsiusToFahrenheit(weather.temperatureMax), "#", unitLabel))
+                    day2.tmin.text = String.format(getString(R.string.tmin_daily), Utils.displayTemperature(this, Utils.celsiusToFahrenheit(weather.temperatureMin), "#", unitLabel))
+                }
+            }
             val weatherDisplay = Utils.getWeatherType(weather.displayIcon)
             day2.icon.setImageResource(weatherDisplay.first)
             day2.label.text = getString(weatherDisplay.second)
@@ -139,8 +162,16 @@ class HomeActivity : AppCompatActivity() {
         homeViewModel.dailyWeatherDataLiveData3.observe(this, Observer<DailyWeatherData> { weather ->
             val dateTime = DateTime(weather.day.toLong()*1000)
             day3.date.text = dateTime.dayOfWeek().asShortText.capitalize()
-            day3.tmax.text = String.format(getString(R.string.tmax_daily), Utils.displayTemperature(this, Utils.celsiusToKelvin(weather.temperatureMax), "#"))
-            day3.tmin.text = String.format(getString(R.string.tmin_daily), Utils.displayTemperature(this, Utils.celsiusToKelvin(weather.temperatureMin), "#"))
+            when (unitLabel) {
+                Constants.UnitSystem.KELVIN -> {
+                    day3.tmax.text = String.format(getString(R.string.tmax_daily), Utils.displayTemperature(this, Utils.celsiusToKelvin(weather.temperatureMax), "#", unitLabel))
+                    day3.tmin.text = String.format(getString(R.string.tmin_daily), Utils.displayTemperature(this, Utils.celsiusToKelvin(weather.temperatureMin), "#", unitLabel))
+                }
+                Constants.UnitSystem.FAHRENHEIT -> {
+                    day3.tmax.text = String.format(getString(R.string.tmax_daily), Utils.displayTemperature(this, Utils.celsiusToFahrenheit(weather.temperatureMax), "#", unitLabel))
+                    day3.tmin.text = String.format(getString(R.string.tmin_daily), Utils.displayTemperature(this, Utils.celsiusToFahrenheit(weather.temperatureMin), "#", unitLabel))
+                }
+            }
             val weatherDisplay = Utils.getWeatherType(weather.displayIcon)
             day3.icon.setImageResource(weatherDisplay.first)
             day3.label.text = getString(weatherDisplay.second)
@@ -148,8 +179,16 @@ class HomeActivity : AppCompatActivity() {
         homeViewModel.dailyWeatherDataLiveData4.observe(this, Observer<DailyWeatherData> { weather ->
             val dateTime = DateTime(weather.day.toLong()*1000)
             day4.date.text = dateTime.dayOfWeek().asShortText.capitalize()
-            day4.tmax.text = String.format(getString(R.string.tmax_daily), Utils.displayTemperature(this, Utils.celsiusToKelvin(weather.temperatureMax), "#"))
-            day4.tmin.text = String.format(getString(R.string.tmin_daily), Utils.displayTemperature(this, Utils.celsiusToKelvin(weather.temperatureMin), "#"))
+            when (unitLabel) {
+                Constants.UnitSystem.KELVIN -> {
+                    day4.tmax.text = String.format(getString(R.string.tmax_daily), Utils.displayTemperature(this, Utils.celsiusToKelvin(weather.temperatureMax), "#", unitLabel))
+                    day4.tmin.text = String.format(getString(R.string.tmin_daily), Utils.displayTemperature(this, Utils.celsiusToKelvin(weather.temperatureMin), "#", unitLabel))
+                }
+                Constants.UnitSystem.FAHRENHEIT -> {
+                    day4.tmax.text = String.format(getString(R.string.tmax_daily), Utils.displayTemperature(this, Utils.celsiusToFahrenheit(weather.temperatureMax), "#", unitLabel))
+                    day4.tmin.text = String.format(getString(R.string.tmin_daily), Utils.displayTemperature(this, Utils.celsiusToFahrenheit(weather.temperatureMin), "#", unitLabel))
+                }
+            }
             val weatherDisplay = Utils.getWeatherType(weather.displayIcon)
             day4.icon.setImageResource(weatherDisplay.first)
             day4.label.text = getString(weatherDisplay.second)

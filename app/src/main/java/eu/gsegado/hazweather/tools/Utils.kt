@@ -29,10 +29,17 @@ object Utils {
         return t+273.15
     }
 
-    fun displayTemperature(ctx: Context, temp: Double, pattern: String): String {
+    fun celsiusToFahrenheit(t: Double): Double {
+        return t*1.8+32
+    }
+
+    fun displayTemperature(ctx: Context, temp: Double, pattern: String, unit: Constants.UnitSystem): String {
         val df = DecimalFormat(pattern, DecimalFormatSymbols.getInstance(Locale.US))
         df.roundingMode = RoundingMode.CEILING
-        return df.format(temp) +" "+ ctx.getString(R.string.unit_K)
+        return when (unit) {
+            Constants.UnitSystem.KELVIN -> df.format(temp) +" "+ ctx.getString(R.string.unit_K)
+            Constants.UnitSystem.FAHRENHEIT -> df.format(temp) +" "+ ctx.getString(R.string.unit_F)
+        }
     }
 
     fun fromHtml(str: String): Spanned {

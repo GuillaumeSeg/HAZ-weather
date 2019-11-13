@@ -18,4 +18,13 @@ object Constants {
                         R.string.tips_6,
                         R.string.tips_7
                     )
+
+    enum class UnitSystem(val unit: String) {
+        KELVIN("K"),
+        FAHRENHEIT("F");
+
+        companion object {
+            fun from(findValue: String): UnitSystem = UnitSystem.values().first { it.unit == findValue }
+        }
+    }
 }

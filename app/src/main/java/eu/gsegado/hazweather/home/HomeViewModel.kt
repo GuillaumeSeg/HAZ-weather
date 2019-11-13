@@ -1,14 +1,17 @@
 package eu.gsegado.hazweather.home
 
 import android.app.Application
+import android.content.SharedPreferences
 import android.location.Geocoder
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.preference.PreferenceManager
 import com.crashlytics.android.Crashlytics
 import eu.gsegado.hazweather.Constants
 import eu.gsegado.hazweather.models.CurrentWeather
 import eu.gsegado.hazweather.models.DailyWeatherData
+import eu.gsegado.hazweather.manager.SharedPreferencesManager
 import eu.gsegado.hazweather.repository.WeatherRepository
 import eu.gsegado.hazweather.tools.Utils
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -40,21 +43,49 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     val dailyWeatherDataLiveData2 = MutableLiveData<DailyWeatherData>()
     val dailyWeatherDataLiveData3 = MutableLiveData<DailyWeatherData>()
     val dailyWeatherDataLiveData4 = MutableLiveData<DailyWeatherData>()
+    val unitLabelTempLiveData = MutableLiveData<Constants.UnitSystem>(Constants.UnitSystem.KELVIN)
 
     private val compositeDisposable = CompositeDisposable()
 
     private val weatherRepository = WeatherRepository()
+    private val sharedPreferencesManager: SharedPreferencesManager by lazy {
+        val preferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(application.applicationContext)
+        SharedPreferencesManager(preferences)
+    }
 
     init {
         computeDate()
         computeTips()
 
+        sharedPreferencesManager.unitsBehaviorSubject
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeBy(onNext = { unitPref ->
+                unitLabelTempLiveData.postValue(unitPref)
+
+                weatherRepository.weatherBehaviorSubject.value?.let {
+                    computeCurrentWeather(it.current, unitPref)
+                    if (it.daily.data.isNotEmpty()) {
+                        computeMaxMinCurrent(it.daily.data[0], unitPref)
+                        computeNextDays(it.daily.data)
+                    }
+                }
+            }, onError = {
+                Crashlytics.logException(it)
+            })
+            .addTo(compositeDisposable)
+
         weatherRepository.weatherBehaviorSubject
             .subscribeOn(Schedulers.io())
             .map { result ->
-                computeCurrentWeather(result.current)
+                val unitPref = sharedPreferencesManager.preferences.getString(SharedPreferencesManager.KEY_UNITS, "K")?.let {
+                    Constants.UnitSystem.from(it)
+                } ?: Constants.UnitSystem.KELVIN
+
+                unitLabelTempLiveData.postValue(unitPref)
+                computeCurrentWeather(result.current, unitPref)
                 if (result.daily.data.isNotEmpty()) {
-                    computeMaxMinCurrent(result.daily.data[0])
+                    computeMaxMinCurrent(result.daily.data[0], unitPref)
                     computeMoonsPhases(result.daily.data[0].moonPhase)
                     computeNextDays(result.daily.data)
                 }
@@ -69,6 +100,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
     override fun onCleared() {
         super.onCleared()
+        sharedPreferencesManager.clear()
         compositeDisposable.clear()
         weatherRepository.clear()
     }
@@ -109,18 +141,34 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    private fun computeCurrentWeather(current: CurrentWeather) {
+    private fun computeCurrentWeather(current: CurrentWeather, unit: Constants.UnitSystem) {
         currentWeatherLabelLiveData.postValue(current.displayIcon)
 
-        currentTemperature.postValue(Utils.celsiusToKelvin(current.temperature))
-        dewPoint.postValue(Utils.celsiusToKelvin(current.dewPoint))
+        when (unit) {
+            Constants.UnitSystem.KELVIN -> {
+                currentTemperature.postValue(Utils.celsiusToKelvin(current.temperature))
+                dewPoint.postValue(Utils.celsiusToKelvin(current.dewPoint))
+            }
+            Constants.UnitSystem.FAHRENHEIT -> {
+                currentTemperature.postValue(Utils.celsiusToFahrenheit(current.temperature))
+                dewPoint.postValue(Utils.celsiusToFahrenheit(current.dewPoint))
+            }
+        }
 
         currentWeatherDisplayLiveData.postValue(Utils.getWeatherType(current.displayIcon))
     }
 
-    private fun computeMaxMinCurrent(dailyWeather: DailyWeatherData) {
-        currentTemperatureMax.postValue(Utils.celsiusToKelvin(dailyWeather.temperatureMax))
-        currentTemperatureMin.postValue(Utils.celsiusToKelvin(dailyWeather.temperatureMin))
+    private fun computeMaxMinCurrent(dailyWeather: DailyWeatherData, unit: Constants.UnitSystem) {
+        when (unit) {
+            Constants.UnitSystem.KELVIN -> {
+                currentTemperatureMax.postValue(Utils.celsiusToKelvin(dailyWeather.temperatureMax))
+                currentTemperatureMin.postValue(Utils.celsiusToKelvin(dailyWeather.temperatureMin))
+            }
+            Constants.UnitSystem.FAHRENHEIT -> {
+                currentTemperatureMax.postValue(Utils.celsiusToFahrenheit(dailyWeather.temperatureMax))
+                currentTemperatureMin.postValue(Utils.celsiusToFahrenheit(dailyWeather.temperatureMin))
+            }
+        }
     }
 
     private fun computeTips() {

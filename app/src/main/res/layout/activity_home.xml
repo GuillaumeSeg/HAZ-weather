@@ -79,8 +79,15 @@
             app:layout_constraintBottom_toBottomOf="@+id/line_h_2" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
+    <ImageView
+        android:id="@+id/settings"
+        android:layout_height="20dp"
+        android:layout_width="20dp"
+        android:src="@drawable/settings"
+        android:tint="@color/colorText"
+        android:layout_gravity="end"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/current_weather_container"

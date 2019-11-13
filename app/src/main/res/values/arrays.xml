@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="units_values">
+        <item>K</item>
+        <item>F</item>
+    </string-array>
+    <string-array name="units_label">
+        <item>@string/settings_kelvin</item>
+        <item>@string/settings_fahrenheit</item>
+    </string-array>
+</resources>

@@ -2,6 +2,7 @@ package eu.gsegado.hazweather.settings
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.preference.PreferenceManager
 import eu.gsegado.hazweather.R
 
 class SettingsActivity : AppCompatActivity() {

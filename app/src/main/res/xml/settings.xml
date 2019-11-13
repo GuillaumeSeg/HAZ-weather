@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-    <SwitchPreferenceCompat
-        app:key="notifications"
-        app:title="Enable message notifications"/>
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <ListPreference
+        android:key="units"
+        android:title="Unités"
+        android:entries="@array/units_label"
+        android:entryValues="@array/units_values"
+        android:defaultValue="K"
+        android:summary="@string/choose_units"
+        android:icon="@drawable/hailstone2"/>
     <Preference
         app:key="feedback"
         app:title="Send feedback"
