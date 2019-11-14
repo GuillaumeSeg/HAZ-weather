@@ -19,3 +19,7 @@ J'ai ajouté quelques services Google comme le service de localisation, crashlyt
 les Settings de l'application sont gérés avec les SharedPreferences et Rx.
 
 J'ai pris beaucoup de plaisir à développer ce projet, je pense que je vais continuer à le maintenir, mettre l'application en production, récupérer les différents crashs via crashlytics, améliorer les features et les settings, refactorer la Home.
+
+
+Beta :
+https://play.google.com/apps/testing/eu.gsegado.hazweather
