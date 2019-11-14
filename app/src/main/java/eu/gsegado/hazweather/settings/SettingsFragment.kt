@@ -7,6 +7,8 @@ import androidx.preference.ListPreference
 import androidx.preference.PreferenceFragmentCompat
 import eu.gsegado.hazweather.R
 import android.content.res.Configuration
+import android.content.res.Resources
+import android.util.DisplayMetrics
 import androidx.preference.EditTextPreference
 import eu.gsegado.hazweather.SplashscreenActivity
 import eu.gsegado.hazweather.home.HomeActivity
@@ -17,6 +19,8 @@ class SettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedP
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.settings, rootKey)
+
+
     }
 
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
@@ -39,6 +43,16 @@ class SettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedP
             if (it == "languages") {
                 sharedPreferences?.getString(key, "fr")?.let { langChoice ->
 
+                    val locale = Locale(langChoice)
+                    val res: Resources = resources
+                    val dm: DisplayMetrics = res.displayMetrics
+                    Locale.setDefault(locale)
+                    val conf: Configuration = res.configuration
+                    conf.setLocale(locale)
+                    res.updateConfiguration(conf, dm)
+                    val splash = Intent(activity, SplashscreenActivity::class.java)
+                    activity?.finish()
+                    startActivity(splash)
                 }
             }
         }
