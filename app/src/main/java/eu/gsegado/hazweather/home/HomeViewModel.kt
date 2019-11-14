@@ -123,20 +123,24 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
     fun computeLocation(geocoder: Geocoder, lat: Double?, lng: Double?) {
         Utils.safeLet(lat, lng) { latitudeSafe, longitudeSafe ->
-            val addresses = geocoder.getFromLocation(latitudeSafe, longitudeSafe, 1)
-            val cityName = addresses[0].locality
-            val thoroughfareName = addresses[0].thoroughfare
-
             val sectorLabel = Utils.getRandomSectorLabel()
-            if (!thoroughfareName.isNullOrEmpty()) {
-                val thoroughfareNameSplit = thoroughfareName.split(" ", ignoreCase = false, limit = 2)
-                if (thoroughfareNameSplit.size >= 2) {
-                    locationLabelLiveData.value = sectorLabel+" "+ thoroughfareNameSplit[1]
+            try {
+                val addresses = geocoder.getFromLocation(latitudeSafe, longitudeSafe, 1)
+                val cityName = addresses[0].locality
+                val thoroughfareName = addresses[0].thoroughfare
+                if (!thoroughfareName.isNullOrEmpty()) {
+                    val thoroughfareNameSplit = thoroughfareName.split(" ", ignoreCase = false, limit = 2)
+                    if (thoroughfareNameSplit.size >= 2) {
+                        locationLabelLiveData.value = sectorLabel+" "+ thoroughfareNameSplit[1]
+                    } else {
+                        locationLabelLiveData.value = sectorLabel+" "+ thoroughfareNameSplit[0]
+                    }
                 } else {
-                    locationLabelLiveData.value = sectorLabel+" "+ thoroughfareNameSplit[0]
+                    locationLabelLiveData.value = "$sectorLabel $cityName"
                 }
-            } else {
-                locationLabelLiveData.value = "$sectorLabel $cityName"
+            } catch(e: java.io.IOException) {
+                locationLabelLiveData.value = "$sectorLabel _"
+                Crashlytics.logException(e)
             }
         }
     }

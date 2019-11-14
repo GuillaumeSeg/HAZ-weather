@@ -7,6 +7,7 @@ import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.location.Location
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -219,6 +220,8 @@ class HomeActivity : AppCompatActivity() {
 
                 val geocoder = Geocoder(this, Locale.getDefault())
                 homeViewModel.computeLocation(geocoder, location.latitude, location.longitude)
+            } ?: run {
+                Toast.makeText(this, getString(R.string.gps_error), Toast.LENGTH_SHORT).show()
             }
         }
     }
