@@ -3,14 +3,23 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <ListPreference
         android:key="units"
-        android:title="Unités"
+        android:title="@string/units"
         android:entries="@array/units_label"
         android:entryValues="@array/units_values"
         android:defaultValue="K"
         android:summary="@string/choose_units"
         android:icon="@drawable/hailstone2"/>
-    <Preference
-        app:key="feedback"
-        app:title="Send feedback"
-        app:summary="Report technical issues or suggest new features"/>
+    <ListPreference
+        android:key="languages"
+        android:title="@string/language"
+        android:entries="@array/lang_label"
+        android:entryValues="@array/lang_values"
+        android:defaultValue="fr"
+        android:summary="@string/choose_lang"
+        android:icon="@drawable/lang"/>
+    <EditTextPreference
+        android:key="location"
+        android:title="@string/town"
+        android:summary="@string/choose_location"
+        android:icon="@drawable/location_icon"/>
 </PreferenceScreen>

@@ -23,7 +23,8 @@
 
         <activity
             android:name=".home.HomeActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask">
         </activity>
 
         <activity

@@ -141,6 +141,11 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    fun computeLocation(sector: String) {
+        val sectorLabel = Utils.getRandomSectorLabel()
+        locationLabelLiveData.value = "$sectorLabel $sector"
+    }
+
     private fun computeCurrentWeather(current: CurrentWeather, unit: Constants.UnitSystem) {
         currentWeatherLabelLiveData.postValue(current.displayIcon)
 

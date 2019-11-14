@@ -1,10 +1,17 @@
 package eu.gsegado.hazweather.settings
 
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.preference.ListPreference
 import androidx.preference.PreferenceFragmentCompat
 import eu.gsegado.hazweather.R
+import android.content.res.Configuration
+import androidx.preference.EditTextPreference
+import eu.gsegado.hazweather.SplashscreenActivity
+import eu.gsegado.hazweather.home.HomeActivity
+import java.util.*
+
 
 class SettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedPreferenceChangeListener {
 
@@ -21,6 +28,17 @@ class SettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedP
                         "K" -> unitsPref?.summary = getString(R.string.settings_kelvin)
                         "F" -> unitsPref?.summary = getString(R.string.settings_fahrenheit)
                     }
+                }
+            }
+            if (it == "location") {
+                sharedPreferences?.getString(key, "fr")?.let { locationChoice ->
+                    val locationPref = findPreference<EditTextPreference>(it)
+                    locationPref?.summary = locationChoice
+                }
+            }
+            if (it == "languages") {
+                sharedPreferences?.getString(key, "fr")?.let { langChoice ->
+
                 }
             }
         }

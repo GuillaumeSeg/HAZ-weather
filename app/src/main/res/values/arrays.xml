@@ -8,4 +8,13 @@
         <item>@string/settings_kelvin</item>
         <item>@string/settings_fahrenheit</item>
     </string-array>
+
+    <string-array name="lang_values">
+        <item>fr</item>
+        <item>en</item>
+    </string-array>
+    <string-array name="lang_label">
+        <item>@string/settings_fr</item>
+        <item>@string/settings_en</item>
+    </string-array>
 </resources>

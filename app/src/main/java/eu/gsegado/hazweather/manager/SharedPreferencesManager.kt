@@ -8,9 +8,11 @@ class SharedPreferencesManager(val preferences: SharedPreferences) {
 
     companion object {
         const val KEY_UNITS = "units"
+        const val KEY_LOCATION = "location"
     }
 
     val unitsBehaviorSubject by lazy { BehaviorSubject.create<Constants.UnitSystem>() }
+    val locationBehaviorSubject by lazy { BehaviorSubject.create<String>() }
 
     private val prefChangeListener = SharedPreferences.OnSharedPreferenceChangeListener { sharedPreferences, key ->
         key?.let {
@@ -24,7 +26,11 @@ class SharedPreferencesManager(val preferences: SharedPreferences) {
                             unitsBehaviorSubject.onNext(Constants.UnitSystem.FAHRENHEIT)
                         }
                     }
-
+                }
+            }
+            if (it == KEY_LOCATION) {
+                sharedPreferences?.getString(key, "")?.let { locationChoice ->
+                    locationBehaviorSubject.onNext(locationChoice)
                 }
             }
         }

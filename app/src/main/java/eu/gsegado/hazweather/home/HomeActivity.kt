@@ -2,6 +2,7 @@ package eu.gsegado.hazweather.home
 
 import android.Manifest
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.location.Location
@@ -11,10 +12,12 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.preference.PreferenceManager
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import eu.gsegado.hazweather.Constants
 import eu.gsegado.hazweather.R
+import eu.gsegado.hazweather.manager.SharedPreferencesManager
 import eu.gsegado.hazweather.models.DailyWeatherData
 import eu.gsegado.hazweather.settings.SettingsActivity
 import eu.gsegado.hazweather.tools.Utils
@@ -61,7 +64,17 @@ class HomeActivity : AppCompatActivity() {
                     getLastKnowLocation()
                 } else {
                     // permission denied
-
+                    val preferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+                    preferences.getString(SharedPreferencesManager.KEY_LOCATION, "Paris")?.let {
+                        if (it.isNotEmpty()) {
+                            val geocoder = Geocoder(this, Locale.getDefault())
+                            val places = geocoder.getFromLocationName(it, 1)
+                            if (!places.isNullOrEmpty()) {
+                                homeViewModel.computeLocation(places[0].locality)
+                                homeViewModel.requestWeather(places[0].latitude, places[0].longitude)
+                            }
+                        }
+                    }
                 }
                 return
             }

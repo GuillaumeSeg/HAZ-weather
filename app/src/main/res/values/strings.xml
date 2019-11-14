@@ -9,6 +9,12 @@
     <string name="settings_kelvin">Kelvin : K</string>
     <string name="settings_fahrenheit">Fahrenheit : °F</string>
     <string name="choose_units">Choisir l\'unité de température</string>
+    <string name="choose_lang">Choisir la langue</string>
+    <string name="language">Langue</string>
+    <string name="settings_fr">Français</string>
+    <string name="settings_en">Anglais</string>
+    <string name="town">Ville</string>
+    <string name="choose_location">Choisir une ville</string>
 
     <string name="tmax"><![CDATA[ T<inf><small>max</small></inf> -> %s ]]></string>
     <string name="tmin"><![CDATA[ T<inf><small>min</small></inf> -> %s ]]></string>
