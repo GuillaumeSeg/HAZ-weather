@@ -39,7 +39,7 @@
         android:paddingEnd="5dp"
         android:paddingStart="8dp"
         android:text="@string/app_name"
-        android:textColor="@color/colorText"
+        android:textColor="@color/colorAccent"
         android:textSize="28sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -49,7 +49,7 @@
         android:layout_marginTop="5dp"
         android:layout_width="0dp"
         android:layout_height="16dp"
-        android:background="@color/colorText"
+        android:background="@color/colorPrimary"
         app:layout_constraintStart_toStartOf="@id/title"
         app:layout_constraintEnd_toEndOf="@id/title"
         app:layout_constraintTop_toBottomOf="@id/title" />
@@ -58,7 +58,7 @@
         android:layout_marginTop="5dp"
         android:layout_width="0dp"
         android:layout_height="5dp"
-        android:background="@color/colorText"
+        android:background="@color/colorAccent"
         app:layout_constraintStart_toEndOf="@id/guideline_ve"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/line"/>
@@ -68,7 +68,7 @@
         android:paddingEnd="8dp"
         android:paddingStart="8dp"
         android:text="@string/darksky_credits"
-        android:textColor="@color/colorText"
+        android:textColor="@color/colorPrimary"
         android:textSize="13sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />

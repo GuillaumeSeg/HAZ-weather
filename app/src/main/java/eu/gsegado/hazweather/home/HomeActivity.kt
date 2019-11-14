@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.preference.PreferenceManager
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import com.norbsoft.typefacehelper.TypefaceHelper
 import eu.gsegado.hazweather.Constants
 import eu.gsegado.hazweather.R
 import eu.gsegado.hazweather.manager.SharedPreferencesManager
@@ -37,6 +38,9 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+
+        moon_1.line_separator_1.setBackgroundColor(ContextCompat.getColor(this, R.color.colorText))
+        TypefaceHelper.typeface(this)
 
         homeViewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
 
