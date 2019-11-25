@@ -4,6 +4,14 @@
     <string name="unit_K">K</string>
     <string name="unit_F">°F</string>
     <string name="units">Units</string>
+    <string name="choose_units">Select the temperature unit</string>
+    <string name="choose_lang">Select the language</string>
+    <string name="language">Language</string>
+    <string name="settings_fr">French</string>
+    <string name="settings_en">English</string>
+    <string name="town">Town</string>
+    <string name="choose_location">Select a town</string>
+    <string name="gps_error">low GPS</string>
 
     <string name="tmax"><![CDATA[ T<inf><small>max</small></inf> -> %s ]]></string>
     <string name="tmin"><![CDATA[ T<inf><small>min</small></inf> -> %s ]]></string>
@@ -11,6 +19,16 @@
 
     <string name="name_moon_alpha">Moon α : HK39B</string>
     <string name="name_moon_zeta">Moon ζ : PA812</string>
+
+    <!-- Tips -->
+    <string name="good_day">Very beautiful day to you!</string>
+    <string name="tips_1">It is recommended to wear your gas mask today,</string>
+    <string name="tips_2">It is advisable to take your iodine tablet in the morning,</string>
+    <string name="tips_3">The curfew is introduced from 3pm,</string>
+    <string name="tips_4">Do not let your children or pets play in disaster areas,</string>
+    <string name="tips_5">It is advisable to listen to the radio during severe thunderstorms,</string>
+    <string name="tips_6">Don\'t forget your ration ticket at the nearest station,</string>
+    <string name="tips_7">RV2 &amp; RV5 vaccines are now available,</string>
 
     <!-- Moon Phasis -->
     <string name="moon_0">New moon</string>
@@ -21,4 +39,24 @@
     <string name="moon_5">Waning gibbous</string>
     <string name="moon_6">Third quarter</string>
     <string name="moon_7">Waning crescent</string>
+
+    <!-- Type weather -->
+    <string name="meteorites">meteorite fall</string>
+    <string name="haze">non toxic haze</string>
+    <string name="acid_rains">acid rains</string>
+    <string name="ashes_smoke">ash cloud</string>
+    <string name="hurricane">hurricane</string>
+    <string name="radioactive_waste">radioactive waste</string>
+    <string name="blizzard">blizzard</string>
+    <string name="dry_storm">dry storm</string>
+    <string name="heat_wave">heat wave</string>
+    <string name="dry_ice">dry ice</string>
+    <string name="hailstone">hailstone</string>
+    <string name="corrosive_fog">corrosive fog</string>
+
+    <!-- Sites -->
+    <string name="area">Area</string>
+    <string name="sector">Sector</string>
+    <string name="region">Region</string>
+    <string name="belt">Belt</string>
 </resources>

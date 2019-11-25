@@ -28,7 +28,7 @@
     <string name="good_day">Très belle journée à vous !</string>
     <string name="tips_1">Il est recommandé de porter son masque à gaz aujourd\'hui,</string>
     <string name="tips_2">Il est conseillé de prendre sa pastille d\'iode dès la matinée,</string>
-    <string name="tips_3">Le couvre feu est instauré à partir de 15h,</string>
+    <string name="tips_3">Le couvre-feu est instauré à partir de 15h,</string>
     <string name="tips_4">Ne laissez pas vos enfants ou animaux jouer dans les aires sinistrées,</string>
     <string name="tips_5">Il est conseillé d\'écouter la radio pendant les orages violents,</string>
     <string name="tips_6">N\'oubliez pas votre ticket de rationnement à la station la plus proche,</string>
@@ -61,5 +61,12 @@
     <string name="dry_ice">glace carbonique</string>
     <string name="hailstone">averse de grêle</string>
     <string name="corrosive_fog">brouillard corrosif</string>
+
+    <!-- Sites -->
+    <string name="area">Zone</string>
+    <string name="sector">Secteur</string>
+    <string name="site">Site</string>
+    <string name="region">Contrée</string>
+    <string name="belt">Ceinture</string>
 
 </resources>

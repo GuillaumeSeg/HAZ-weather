@@ -2,12 +2,12 @@
     <string name="app_name" translatable="false">HAZ Weather</string>
 
     <string name="darksky_credits" translatable="false">Powered by Dark Sky</string>
+    <string name="settings_kelvin" translatable="false">Kelvin : K</string>
+    <string name="settings_fahrenheit" translatable="false">Fahrenheit : °F</string>
 
     <string name="unit_K">K</string>
     <string name="unit_F">°F</string>
     <string name="units">Unités</string>
-    <string name="settings_kelvin">Kelvin : K</string>
-    <string name="settings_fahrenheit">Fahrenheit : °F</string>
     <string name="choose_units">Choisir l\'unité de température</string>
     <string name="choose_lang">Choisir la langue</string>
     <string name="language">Langue</string>
@@ -16,19 +16,18 @@
     <string name="town">Ville</string>
     <string name="choose_location">Choisir une ville</string>
     <string name="gps_error">GPS faible</string>
+    <string name="dew_point">point de rosée</string>
 
     <string name="tmax"><![CDATA[ T<inf><small>max</small></inf> -> %s ]]></string>
     <string name="tmin"><![CDATA[ T<inf><small>min</small></inf> -> %s ]]></string>
     <string name="tmax_daily" translatable="false">·↑·%s</string>
     <string name="tmin_daily" translatable="false">·↓·%s</string>
 
-    <string name="dew_point">point de rosée</string>
-
     <!-- Tips -->
     <string name="good_day">Très belle journée à vous !</string>
     <string name="tips_1">Il est recommandé de porter son masque à gaz aujourd\'hui,</string>
     <string name="tips_2">Il est conseillé de prendre sa pastille d\'iode dès la matinée,</string>
-    <string name="tips_3">Le couvre feu est instauré à partir de 15h,</string>
+    <string name="tips_3">Le couvre-feu est instauré à partir de 15h,</string>
     <string name="tips_4">Ne laissez pas vos enfants ou animaux jouer dans les aires sinistrées,</string>
     <string name="tips_5">Il est conseillé d\'écouter la radio pendant les orages violents,</string>
     <string name="tips_6">N\'oubliez pas votre ticket de rationnement à la station la plus proche,</string>
@@ -61,5 +60,13 @@
     <string name="dry_ice">glace carbonique</string>
     <string name="hailstone">averse de grêle</string>
     <string name="corrosive_fog">brouillard corrosif</string>
+
+    <!-- Sites -->
+    <string name="area">Zone</string>
+    <string name="sector">Secteur</string>
+    <string name="site" translatable="false">Site</string>
+    <string name="region">Contrée</string>
+    <string name="belt">Ceinture</string>
+    <string name="disctrict" translatable="false">District</string>
 
 </resources>

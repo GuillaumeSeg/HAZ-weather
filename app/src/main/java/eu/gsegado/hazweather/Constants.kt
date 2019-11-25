@@ -6,7 +6,13 @@ object Constants {
 
     const val PERMISSION_REQUEST_FINE_LOCATION = 55
 
-    val labelSector = listOf("Zone", "Secteur", "Site", "Contrée", "Ceinture", "District")
+    val labelSector = listOf(R.string.area,
+                             R.string.sector,
+                             R.string.site,
+                             R.string.region,
+                             R.string.belt,
+                             R.string.disctrict)
+
     const val chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
     val listOfTips = listOf(

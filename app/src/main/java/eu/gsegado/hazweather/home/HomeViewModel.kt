@@ -1,6 +1,7 @@
 package eu.gsegado.hazweather.home
 
 import android.app.Application
+import android.content.Context
 import android.content.SharedPreferences
 import android.location.Geocoder
 import android.util.Log
@@ -121,9 +122,9 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         dateLabelLiveData.value = date
     }
 
-    fun computeLocation(geocoder: Geocoder, lat: Double?, lng: Double?) {
+    fun computeLocation(geocoder: Geocoder, lat: Double?, lng: Double?, ctx: Context) {
         Utils.safeLet(lat, lng) { latitudeSafe, longitudeSafe ->
-            val sectorLabel = Utils.getRandomSectorLabel()
+            val sectorLabel = Utils.getRandomSectorLabel(ctx)
             try {
                 val addresses = geocoder.getFromLocation(latitudeSafe, longitudeSafe, 1)
                 val cityName = addresses[0].locality
@@ -145,8 +146,8 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun computeLocation(sector: String) {
-        val sectorLabel = Utils.getRandomSectorLabel()
+    fun computeLocation(sector: String, ctx: Context) {
+        val sectorLabel = Utils.getRandomSectorLabel(ctx)
         locationLabelLiveData.value = "$sectorLabel $sector"
     }
 

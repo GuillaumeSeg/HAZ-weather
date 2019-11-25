@@ -1,6 +1,7 @@
 package eu.gsegado.hazweather.home
 
 import android.Manifest
+import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
@@ -18,6 +19,7 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.norbsoft.typefacehelper.TypefaceHelper
 import eu.gsegado.hazweather.Constants
+import eu.gsegado.hazweather.GlobalApplication
 import eu.gsegado.hazweather.R
 import eu.gsegado.hazweather.manager.SharedPreferencesManager
 import eu.gsegado.hazweather.models.DailyWeatherData
@@ -60,6 +62,10 @@ class HomeActivity : AppCompatActivity() {
 
     }
 
+    override fun attachBaseContext(base: Context) {
+        super.attachBaseContext(GlobalApplication.localeManager?.setLocale(base))
+    }
+
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         when (requestCode) {
             Constants.PERMISSION_REQUEST_FINE_LOCATION -> {
@@ -75,7 +81,7 @@ class HomeActivity : AppCompatActivity() {
                             val geocoder = Geocoder(this, Locale.getDefault())
                             val places = geocoder.getFromLocationName(it, 1)
                             if (!places.isNullOrEmpty()) {
-                                homeViewModel.computeLocation(places[0].locality)
+                                homeViewModel.computeLocation(places[0].locality, this)
                                 homeViewModel.requestWeather(places[0].latitude, places[0].longitude)
                             }
                         }
@@ -219,7 +225,7 @@ class HomeActivity : AppCompatActivity() {
                 homeViewModel.requestWeather(location.latitude, location.longitude)
 
                 val geocoder = Geocoder(this, Locale.getDefault())
-                homeViewModel.computeLocation(geocoder, location.latitude, location.longitude)
+                homeViewModel.computeLocation(geocoder, location.latitude, location.longitude, this)
             } ?: run {
                 Toast.makeText(this, getString(R.string.gps_error), Toast.LENGTH_SHORT).show()
             }
